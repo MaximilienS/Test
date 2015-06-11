@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="UTF-8"> 
+	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<body>
+
+	<h1>To Do List</h1>
+
+	<form method="POST" action="ajout.php">
+		
+		<fieldset>
+			<label>Titre </label><input type="text" name="titre" id="username" value="" placeholder="Votre titre">
+		</fieldset>
+		<fieldset>
+			<label>Description </label><input type="text" name="description" id="username" value="" placeholder="Votre titre">
+		</fieldset>
+		<fieldset name="date">
+			<label>Jour : </label>
+				<select name="jour">
+					<option value="1">1</option>
+				<?php
+
+				for ($i=0; $i<=31 ; $i++) 
+				{ 
+				echo "<option value='".$i."'>".$i."</option>";
+				echo "<br>";	
+				}
+
+				?>
+				</select>
+				
+			<label>Mois : </label>
+				<select name="mois">
+					<option value="Janvier">Janvier</option>
+					<option value="Février">Février</option>
+					<option value="Mars">Mars</option>
+					<option value="Avril">Avril</option>
+					<option value="Mai">Mai</option>
+					<option value="Juin">Juin</option>
+					<option value="Juillet">Juillet</option>
+					<option value="Août">Août</option>
+					<option value="Septembre">Septembre</option>
+					<option value="Octobre">Octobre</option>
+					<option value="Novembre">Novembre</option>
+					<option value="Décembre">Décembre</option>
+
+				</select>
+
+				<label>Annee</label>
+				<select name="annee">
+	
+				
+				<?php
+
+				for ($year=date("Y"); $year<date("Y")+11 ; $year++) 
+				{ 
+				echo "<option value='".$year."'>".$year."</option>";
+				echo "<br>";	
+				}
+
+				?>
+				</select>
+			</fieldset>
+			<fieldset>
+				<label>Priorite</label>
+				<select name="priorite">
+					<option value="faible">Faible</option>
+					<option value="moyen">Moyen</option>
+					<option value="urgent">Urgent</option>
+				</select>	
+			</fieldset>
+			<input type="submit" value="Allez!">
+
+	</form>
+
+	<form method="POST" action="remove-all.php">
+			<button>Supprimer tout</button>
+	</form>		
+		
+			
+			
+	
+
+	</form>
+
+
+		<form method="POST" action="remove.php">
+
+			<button>Supprimer</button>
+
+			<br>
+	<?php
+
+
+//var_dump($tache);
+
+for ($i=0; $i<count($tache) ;$i++)
+{
+	$titre= ($tache[$i][0]);
+	$description=($tache[$i][1]);
+	$jour=($tache[$i][2]);
+	$mois=($tache[$i][3]);
+	$annee=($tache[$i][4]);
+	$priorite=($tache[$i][5]);
+	$all=($titre.$description.$jour.$mois.$annee.$priorite);
+	echo "<input type= 'checkbox' name='task_id[]' value='$i'>".$all;
+	echo "</br>";
+}	
+	
+/*$prio= [];
+$file = fopen("data.csv","r");
+var_dump($prio);
+	if ($priorite == "faible")
+	{
+		echo "<select style='color=green'>faible</select>";
+	}
+else if ($priorite == "moyen")
+	{
+		echo "<select style='color=green'>moyen</select>";
+	}
+else 
+	{
+		echo "<select style='color=green'>urgent</select>";
+	}
+	echo "</br>";
+	}*/
+
+
+
+if (array_key_exists("success", $_GET))
+	{
+		echo "Opération réussie !";
+	}
+
+?>
+		</form>
+
+
+	</body>
+</html>
